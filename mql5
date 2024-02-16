@@ -1,0 +1,95 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                         MACD timeframes          |
+//|                                   Developer's site: forexroboteasy.com  |
+//|                                         Development: Forex Robot Easy Team |
+//+------------------------------------------------------------------+
+
+#property strict
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Define the desired timeframes for analysis
+    int timeframes[] = {PERIOD_M1, PERIOD_M5, PERIOD_H1, PERIOD_D1};
+
+    // Print the selected timeframes
+    Print('Selected Timeframes:');
+    for(int i=0; i<ArraySize(timeframes); i++)
+    {
+        string timeframeStr;
+        if(timeframes[i] == PERIOD_M1) timeframeStr = 'M1';
+        else if(timeframes[i] == PERIOD_M5) timeframeStr = 'M5';
+        else if(timeframes[i] == PERIOD_H1) timeframeStr = 'H1';
+        else if(timeframes[i] == PERIOD_D1) timeframeStr = 'D1';
+
+        Print(' - ', timeframeStr);
+    }
+
+    // Calculate and display the MACD indicator for each selected timeframe
+    for(int i=0; i<ArraySize(timeframes); i++)
+    {
+        double macdLine, signalLine, histogram;
+
+        if(CalculateMACD(timeframes[i], macdLine, signalLine, histogram))
+        {
+            Print('MACD Indicator for ', GetTimeframeString(timeframes[i]));
+            Print('MACD Line: ', macdLine);
+            Print('Signal Line: ', signalLine);
+            Print('Histogram: ', histogram);
+
+            // Perform market trend monitoring based on MACD indicator
+            MonitorMarketTrend(macdLine, signalLine, histogram);
+
+            // Perform future price movement prediction based on MACD analysis
+            PredictFutureMovements(macdLine, signalLine, histogram);
+        }
+    }
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Calculate the MACD indicator for the given timeframe             |
+//+------------------------------------------------------------------+
+bool CalculateMACD(int timeframe, double &out macdLine, double &out signalLine, double &out histogram)
+{
+    // Add code to calculate MACD indicator
+    // ...
+    return true;
+}
+
+//+------------------------------------------------------------------+
+//| Monitor the market trend based on the MACD indicator             |
+//+------------------------------------------------------------------+
+void MonitorMarketTrend(double macdLine, double signalLine, double histogram)
+{
+    // Add code to monitor market trend
+    // ...
+    Print('Market Trend: Bullish');
+}
+
+//+------------------------------------------------------------------+
+//| Predict future price movements based on MACD analysis            |
+//+------------------------------------------------------------------+
+void PredictFutureMovements(double macdLine, double signalLine, double histogram)
+{
+    // Add code to predict future price movements
+    // ...
+    Print('Prediction: Upward movement expected');
+}
+
+//+------------------------------------------------------------------+
+//| Convert timeframe value to string representation                 |
+//+------------------------------------------------------------------+
+string GetTimeframeString(int timeframe)
+{
+    if(timeframe == PERIOD_M1) return 'M1';
+    else if(timeframe == PERIOD_M5) return 'M5';
+    else if(timeframe == PERIOD_H1) return 'H1';
+    else if(timeframe == PERIOD_D1) return 'D1';
+
+    return '';
+}
